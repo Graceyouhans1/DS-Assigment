@@ -1,0 +1,96 @@
+package com.java2novice.ds.linkedlist;
+import java.util.NoSuchElementException;
+public class DoublyLinkedList<DLL> {
+private Node head; 
+private Node tail;
+private int size;
+public DoublyLinkedList() {
+size = 0;
+}
+private class Node {
+DLL element;
+Node next;
+Node prev;
+public Node(DLL element, Node next, Node prev) {
+this .element = element;
+this .next = next;
+this .prev = prev;
+}}
+public int size() { 
+    return size; }
+
+public boolean isEmpty() { 
+    return size == 0; }
+public void insertToHead(DLL element) {
+Node tmp = new Node(element,head, null );
+if (head != null ) {head.prev = tmp;}
+head = tmp;
+if (tail == null ) { tail = tmp;}
+size++;
+System.out.println( "adding: " +element);
+}
+public void insertToTail(DLL element) {
+Node tmp = new Node(element, null , tail);
+if (tail != null ) {tail.next = tmp;}
+tail = tmp;
+if (head == null ) { head = tmp;}
+size++;
+System.out.println( "adding: " +element);
+}
+public void iterateForward(){
+System.out.println( "iterating forward is.." );
+Node tmp = head;
+while (tmp != null ){
+System.out.println(tmp.element);
+tmp = tmp.next;
+}
+}
+public void iterateBackward(){
+System.out.println( "iterating backword is.." );
+Node tmp = tail;
+while (tmp != null ){
+System.out.println(tmp.element);
+tmp = tmp.prev;
+}
+}
+public DLL deleteFromHead() {
+if (size == 0) throw new NoSuchElementException();
+Node tmp = head;
+head = head.next;
+head.prev = null;
+size--;
+System.out.println( "The removed one is: " +tmp.element);
+return tmp.element;
+}
+public DLL deleteFromTail() {
+if (size == 0) throw new NoSuchElementException();
+Node tmp = tail;
+tail = tail.prev;
+tail.next = null;
+size--;
+System.out.println( "The removed one is: " +tmp.element);
+return tmp.element;
+}
+public void printList(){
+		for(Node temp = this.head;temp!=null;temp=temp.next)
+			System.out.println(temp.element);
+	}
+public boolean search(DLL element){
+		Node tmp = this.head;
+		for(;tmp!=null&&tmp.element!=element;tmp=tmp.next);
+		return tmp!=null;
+                
+	}
+public static void main(String []args){
+DoublyLinkedList<Integer> doublyLL = new DoublyLinkedList<>();
+doublyLL.insertToHead( 10 );
+doublyLL.insertToHead( 22 );
+doublyLL.insertToTail( 2);
+doublyLL.insertToTail( 17);
+doublyLL.insertToTail( 67);
+doublyLL.iterateForward();
+doublyLL.deleteFromHead();
+doublyLL.deleteFromTail();
+doublyLL.iterateBackward();
+}
+}
